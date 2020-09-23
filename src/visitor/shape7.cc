@@ -29,11 +29,6 @@ std::ostream &operator<<(std::ostream &os, const Color &c)
 
 
 //=========================================================
-template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
-template<class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
-
-
-//=========================================================
 class Indenter {
 public:
 
@@ -208,27 +203,15 @@ public:
   
   void setFillColor(const Color &c)
   {
-    for (auto &s : m_shape) {
-     std::visit(overloaded {
-       [&](Circle &s) { s.setFillColor(c); },
-       [&](Triangle &s) { s.setFillColor(c); },
-       [&](Rectangle &s) { s.setFillColor(c); },
-       [&](Drawing &s) { s.setFillColor(c); }
-     },s);
-    }
+    for (auto &s : m_shape)
+      std::visit([&](auto&& t) { t.setFillColor(c); }, s);
   }
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   void draw(Window &w)
   { 
-    for (auto &s : m_shape) {
-     std::visit(overloaded {
-       [&](Circle &s) { s.draw(w); },
-       [&](Triangle &s) { s.draw(w); },
-       [&](Rectangle &s) { s.draw(w); },
-       [&](Drawing &s) { s.draw(w); }
-     },s);
-    }
+    for (auto &s : m_shape)
+      std::visit([&](auto &&t) { t.draw(w); }, s);
   }
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
