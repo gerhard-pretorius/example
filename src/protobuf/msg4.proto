@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+import "mtype4.proto";
+
+package msg;
+
+message Foo
+{
+  option (msg_type) = FooType;
+  int32 value = 1;
+}
+
+message Bar
+{
+  option (msg_type) = BarType;
+  string name = 1;
+}
+
+message Baz
+{
+  int32 value = 1;
+}
+

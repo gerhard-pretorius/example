@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message Header
+{
+  sfixed32 magic = 1; 
+  sfixed32 length = 2;      // payload length
+  sfixed32 mtype = 3;
+  sfixed32 filler = 4;      // align on boundary
+}

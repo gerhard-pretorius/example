@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "google/protobuf/descriptor.proto";
+
+enum MessageType
+{
+  Unknown = 0;
+  FooType = 1;
+  BarType = 2;
+}
+
+extend google.protobuf.MessageOptions {
+  optional MessageType msg_type = 51234;
+}

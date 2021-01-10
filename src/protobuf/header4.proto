@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package aprot;
+
+// Version 1
+//    | magic | ver | msgid | length    |
+//    | ff ff | ff  | ff ff | ff ff ff  |
+// 90 | 91 92 | 01  | xx xx | yy yy yy  |
+// 90   91 92   01    01 00   01 00 00
+
+// Version 2
+//    | magic | ver |    | msgid        | length      |
+//    | ff ff | ff  | ff | ff ff ff ff  | ff ff ff ff |
+//    | 91 92 | 01  | 00 | xx xx xx xx  | yy yy yy yy | 
+// 90   91 92   01    00   01 00 00 00 15 01 00 00 00
+
+message Header
+{
+  sfixed64 magic = 1; 
+  sfixed64 mlength = 2;
+}
